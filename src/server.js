@@ -1,34 +1,10 @@
 const express = require("express");
 const multer = require("multer");
-const { createWorker, OEM } = require("tesseract.js");
-const sharp = require("sharp");
-const fs = require("fs");
 const path = require("path");
+const upload = multer({ dest: "src/uploads/" });
+const { preprocessImage, recognizeImage } = require("./core/image-recognition");
 
 const app = express();
-const upload = multer({ dest: "uploads/" });
-
-async function preprocessImage(imagePath, outputImage) {
-  await sharp(imagePath).resize(1500).greyscale().toFile(outputImage);
-}
-
-async function recognizeImage(imageFile) {
-  const worker = await createWorker("eng");
-
-  try {
-    const imageBuffer = fs.readFileSync(imageFile);
-
-    const result = await worker.recognize(imageBuffer, {
-      tessedit_ocr_engine_mode: OEM.TESSERACT_ONLY,
-    });
-
-    return result.data.text;
-  } catch (error) {
-    console.error("Erro ao reconhecer a imagem:", error);
-  } finally {
-    await worker.terminate();
-  }
-}
 
 app.post("/upload", upload.single("image"), async (req, res) => {
   const { path: imagePath } = req.file;
