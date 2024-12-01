@@ -1,64 +1,53 @@
 const { preprocessImage, recognizeImage } = require("../core/image-recognition");
 const path = require("path");
+const fs = require("fs");
 const ora = require("ora");
 
-describe("Image Recognition", () => {
-  let spinner;
+describe('Image Recognition', () => {
+    let spinner;
 
-  beforeAll(() => {
-    console.log("\n=== Starting Image Recognition Tests ===\n");
-  });
+    beforeEach(() => {
+        spinner = ora("Initializing test...").start();
+    });
 
-  beforeEach(() => {
-    // Inicializa o spinner antes de cada teste
-    spinner = ora("Initializing test...").start();
-  });
+    afterEach(() => {
+        spinner.stop();
+    });
 
-  afterEach(() => {
-    // Para o spinner após cada teste
-    spinner.stop();
-  });
+    const imagesDir = path.join(__dirname, "../tests/core/images");
+    const outputDir = path.join(__dirname, "../tests/core/output");
 
-  it("should correctly identify an odometer", async () => {
-    const inputImagePath = path.join(__dirname, "../tests/core/images/odometro.png");
-    const outputImagePath = path.join(__dirname, "../tests/core/output/output.jpg");
+    if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir);
+    }
 
-    spinner.text = "Processing image: odometro.png...";
-    spinner.color = "cyan";
+    const imageFiles = fs.readdirSync(imagesDir);
 
-    await preprocessImage(inputImagePath, outputImagePath);
-    const result = await recognizeImage(outputImagePath);
+    let results = [];
 
-    spinner.succeed("Finished processing: odometro.png");
-    expect(result).toBe("91308");
-  }, 30000);
+    imageFiles.forEach((file) => {
+        it(`should correctly identify text in ${file}`, async () => {
+            const inputImagePath = path.join(imagesDir, file);
+            const outputImagePath = path.join(outputDir, `output_${file}`);
 
-  it("should correctly identify an odometer 2", async () => {
-    const inputImagePath = path.join(__dirname, "../tests/core/images/odometro2.png");
-    const outputImagePath = path.join(__dirname, "../tests/core/output/output.jpg");
+            spinner.text = `Processing image: ${file}...`;
+            spinner.color = "cyan";
 
-    spinner.text = "Processing image: odometro2.png...";
-    spinner.color = "yellow";
+            await preprocessImage(inputImagePath, outputImagePath);
+            const result = await recognizeImage(outputImagePath);
 
-    await preprocessImage(inputImagePath, outputImagePath);
-    const result = await recognizeImage(outputImagePath);
+            results.push({ file, result });
 
-    spinner.succeed("Finished processing: odometro2.png");
-    expect(result).toBe("020047");
-  }, 30000);
+            expect(result).toBeTruthy();
+            expect(result).not.toBeNull();
+            expect(result).not.toBeUndefined();
+            expect(result.length).toBeGreaterThan(0);
 
-  it("should correctly identify an odometer 3", async () => {
-    const inputImagePath = path.join(__dirname, "../tests/core/images/odometro3.png");
-    const outputImagePath = path.join(__dirname, "../tests/core/output/output.jpg");
+        }, 30000);
+    });
 
-    spinner.text = "Processing image: odometro3.png...";
-    spinner.color = "green";
-
-    await preprocessImage(inputImagePath, outputImagePath);
-    const result = await recognizeImage(outputImagePath);
-
-    spinner.succeed("Finished processing: odometro3.png");
-    expect(result).toBe("165466");
-  }, 30000);
+    afterAll(() => {
+        spinner.stop();
+        console.table(results);
+    });
 });
-

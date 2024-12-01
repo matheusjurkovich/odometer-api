@@ -1,52 +1,52 @@
 # Odometer API
 
-Odometer API is a Node.js application that uses Tesseract.js and Sharp to preprocess and recognize text from uploaded images.
+Odometer API é uma aplicação Node.js que usa Tesseract.js e Sharp para pré-processar e reconhecer texto de imagens enviadas.
 
-## Table of Contents
+## Índice
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [Environment Variables](#environment-variables)
-- [Dependencies](#dependencies)
-- [Testing](#testing)
+- [Instalação](#instalação)
+- [Uso](#uso)
+- [Endpoints da API](#endpoints-da-api)
+- [Variáveis de Ambiente](#variáveis-de-ambiente)
+- [Dependências](#dependências)
+- [Testes](#testes)
 
-## Installation
+## Instalação
 
-1. Clone the repository:
+1. Clone o repositório:
 
     ```sh
     git clone <repository-url>
     ```
 
-2. Navigate to the project directory:
+2. Navegue até o diretório do projeto:
 
     ```sh
     cd odometer-api
     ```
 
-3. Install the dependencies:
+3. Instale as dependências:
 
     ```sh
     npm install
     ```
 
-## Usage
+## Uso
 
-1. Start the server:
+1. Inicie o servidor:
 
     ```sh
     npm start
     ```
 
-2. The server will run on the port specified in the `.env` file (default is 3333).
+2. O servidor será executado na porta especificada no arquivo `.env` (o padrão é 3333).
 
-## API Endpoints
+## Endpoints da API
 
 ### GET /
 
-- **Description**: Returns a "Hello World" message.
-- **Response**:
+- **Descrição**: Retorna uma mensagem "Hello World".
+- **Resposta**:
 
     ```json
     Hello World
@@ -54,12 +54,12 @@ Odometer API is a Node.js application that uses Tesseract.js and Sharp to prepro
 
 ### POST /upload
 
-- **Description**: Uploads an image, preprocesses it, and recognizes text from it.
-- **Request**:
+- **Descrição**: Envia uma imagem, pré-processa e reconhece o texto dela.
+- **Requisição**:
   - **Content-Type**: `multipart/form-data`
-  - **Body**:
-    - `image` (file): The image file to be uploaded.
-- **Response**:
+  - **Corpo**:
+    - `image` (arquivo): O arquivo de imagem a ser enviado.
+- **Resposta**:
 
     ```json
     {
@@ -67,11 +67,11 @@ Odometer API is a Node.js application that uses Tesseract.js and Sharp to prepro
     }
     ```
 
-## Environment Variables
+## Variáveis de Ambiente
 
-- `PORT`: The port on which the server will run (default is 3333).
+- `PORT`: A porta na qual o servidor será executado (o padrão é 3333).
 
-## Dependencies
+## Dependências
 
 - [cors](https://www.npmjs.com/package/cors) `^2.8.5`
 - [express](https://www.npmjs.com/package/express) `^4.21.1`
@@ -82,10 +82,9 @@ Odometer API is a Node.js application that uses Tesseract.js and Sharp to prepro
 - [tesseract.js](https://www.npmjs.com/package/tesseract.js) `^5.1.1`
 - [ora](https://www.npmjs.com/package/ora) `^6.0.1`
 
-## Testing
+## Testes
 
-To run the tests, use the following command:
+Para executar os testes, use o seguinte comando:
 
 ```sh
 npm run test
-```
