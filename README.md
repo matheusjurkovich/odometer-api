@@ -9,7 +9,7 @@ Odometer API is a Node.js application that uses Tesseract.js and Sharp to prepro
 - [API Endpoints](#api-endpoints)
 - [Environment Variables](#environment-variables)
 - [Dependencies](#dependencies)
-- [License](#license)
+- [Testing](#testing)
 
 ## Installation
 
@@ -43,7 +43,7 @@ Odometer API is a Node.js application that uses Tesseract.js and Sharp to prepro
 
 ## API Endpoints
 
-#### GET /
+### GET /
 
 - **Description**: Returns a "Hello World" message.
 - **Response**:
@@ -52,7 +52,7 @@ Odometer API is a Node.js application that uses Tesseract.js and Sharp to prepro
     Hello World
     ```
 
-#### POST /upload
+### POST /upload
 
 - **Description**: Uploads an image, preprocesses it, and recognizes text from it.
 - **Request**:
@@ -80,7 +80,12 @@ Odometer API is a Node.js application that uses Tesseract.js and Sharp to prepro
 - [nodemon](https://www.npmjs.com/package/nodemon) `^3.1.7`
 - [sharp](https://www.npmjs.com/package/sharp) `^0.33.5`
 - [tesseract.js](https://www.npmjs.com/package/tesseract.js) `^5.1.1`
+- [ora](https://www.npmjs.com/package/ora) `^6.0.1`
 
-## License
+## Testing
 
-This project is licensed under the ISC License.
+To run the tests, use the following command:
+
+```sh
+npm run test
+```
