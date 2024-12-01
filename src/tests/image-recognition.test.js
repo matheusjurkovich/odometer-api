@@ -15,7 +15,7 @@ describe('Image Recognition', () => {
     });
 
     const imagesDir = path.join(__dirname, "../tests/core/images");
-    const outputDir = path.join(__dirname, "../tests/core/output");
+    const outputDir = path.join(__dirname, "../tests/core/tmp");
 
     if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir);

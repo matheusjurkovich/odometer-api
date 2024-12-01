@@ -1,3 +1,5 @@
 node_modules
-src/uploads/*
+src/tmp/*
+src/tests/core/tmp/*
 coverage
+.vercel

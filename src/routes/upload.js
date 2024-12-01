@@ -4,12 +4,12 @@ const path = require("path");
 const { preprocessImage, recognizeImage } = require("../core/image-recognition");
 
 const router = express.Router();
-const upload = multer({ dest: "src/uploads/" });
+const upload = multer({ dest: "src/tmp/" });
 
 router.post("/upload", upload.single("image"), async (req, res) => {
   try {
     const { path: imagePath } = req.file;
-    const outputImage = path.join(__dirname, "../uploads", "output.jpg");
+    const outputImage = path.join(__dirname, "../tmp", "output.jpg");
 
     await preprocessImage(imagePath, outputImage);
     const text = await recognizeImage(outputImage);
